@@ -34,6 +34,10 @@ Regards
 Alejandro24
 http://alejandro24.deviantart.com/
 
+Slight modifications and Italian translation
+UncleDan
+http://www.uncledan.it
+
 ]]
 
 conky.config = {
@@ -80,11 +84,11 @@ conky.config = {
 
 conky.text = [[
 $alignc${color white}${font Liberation Sans:pixelsize=33,weight:bold}${time %T}
-${voffset -23}$alignc${color white}${font Liberation Sans:pixelsize=11}${time %A %d de %B de %Y}
+${voffset -23}$alignc${color white}${font Liberation Sans:pixelsize=11}${time %A %d %B %Y}
 ${voffset -10}
-${color white}Usuario: $nodename
+${color white}Utente: $nodename
 ${color white}Kernel: $kernel-$machine
-${color white}Tiempo de act.: $uptime
+${color white}Uptime: $uptime
 ${voffset -7}
 ${font Poky:pixelsize=20}P${offset 5}${font Liberation Sans:pixelsize=15,weight:bold}CPU
 ${voffset -11}${stippled_hr 1}
@@ -96,7 +100,7 @@ ${color white}CPU2: ${cpu cpu2}% $alignr${cpubar cpu2 7,60}
 ${color white}CPU3: ${cpu cpu3}% $alignr${cpubar cpu3 7,60}
 ${color white}CPU4: ${cpu cpu4}% $alignr${cpubar cpu4 7,60}
 ${voffset -7}
-${color white}Proceso $alignr CPU%
+${color white}Processo $alignr CPU%
 ${color white}${top name 1 cpu} $alignr${top cpu 1}%
 ${color white}${top name 2 cpu} $alignr${top cpu 2}%
 ${color white}${top name 3 cpu} $alignr${top cpu 3}%
@@ -109,10 +113,10 @@ ${voffset -11}${stippled_hr 1}
 ${voffset -17}${font Liberation Sans:pixelsize=11}
 ${color white}RAM: $memperc%, $memmax
 ${color white}$alignc $mem ${membar 7,60} $memeasyfree
-${color white}Swap: $swapperc%, $swapmax
+${color white}swap: $swapperc%, $swapmax
 ${color white}$alignc $swap ${swapbar 7,60}  $swapfree
 ${voffset -7}
-${color white}Proceso $alignr RAM%
+${color white}Processo $alignr RAM%
 ${color white}${top_mem name 1} $alignr${top_mem mem 1}%
 ${color white}${top_mem name 2} $alignr${top_mem mem 2}%
 ${color white}${top_mem name 3} $alignr${top_mem mem 3}%
@@ -120,16 +124,14 @@ ${color white}${top_mem name 4} $alignr${top_mem mem 4}%
 ${color white}${top_mem name 5} $alignr${top_mem mem 5}%
 
 ${voffset -23}
-${font Poky:pixelsize=20}H${offset 5}${font Liberation Sans:pixelsize=15,weight:bold}Discos
+${font Poky:pixelsize=20}H${offset 5}${font Liberation Sans:pixelsize=15,weight:bold}Dischi
 ${voffset -11}${stippled_hr 1}
 ${voffset -17}${font Liberation Sans:pixelsize=11}
-${color white}Root: ${fs_used_perc /}%, ${fs_size /} 
+${color white}root: ${fs_used_perc /}%, ${fs_size /} 
 ${color white}$alignc${fs_used /} ${fs_bar 7,60 /} ${fs_free /}
-${color white}Data: ${fs_used_perc /media/hackstahl/Data/}%, ${fs_size /media/hackstahl/Data/} 
-${color white}$alignc${fs_used /media/hackstahl/Data/} ${fs_bar 7,60 /media/hackstahl/Data/} ${fs_free /media/hackstahl/Data/}
  
 ${voffset -23}
-${font Poky:pixelsize=20}w${offset 5}${font Liberation Sans:pixelsize=15,weight:bold}Red
+${font Poky:pixelsize=20}w${offset 5}${font Liberation Sans:pixelsize=15,weight:bold}Rete
 ${voffset -11}${stippled_hr 1}
 ${font Liberation Sans:pixelsize=11}
 ${if_existing /proc/net/route enp2s0}
@@ -137,14 +139,62 @@ ${voffset -30}${color white}Ethernet: ${addr enp2s0}
 ${color white}D: ${downspeed enp2s0} $alignr T: ${totaldown enp2s0}
 ${color white}S: ${upspeed enp2s0} $alignr T: ${totalup enp2s0}
 ${else}
-${voffset -30}${color white}Ethernet: no conectado.
+${voffset -30}${color white}Ethernet: non connesso.
 ${endif}
-${if_existing /proc/net/route wlp3s0}
-${voffset -23}${color white}WiFi: ${addr wlp3s0}
-${color white}D: ${downspeed wlp3s0} $alignr T: ${totaldown wlp3s0}
-${color white}S: ${upspeed wlp3s0} $alignr T: ${totalup wlp3s0}
+${if_existing /proc/net/route wlo1}
+${voffset -23}${color white}WiFi: ${addr wlo1}
+${color white}D: ${downspeed wlo1} $alignr T: ${totaldown wlo1}
+${color white}S: ${upspeed wlo1} $alignr T: ${totalup wlo1}
 ${else}
-${voffset -23}${color white}WiFi: no conectado.
+${voffset -23}${color white}WiFi: non connesso.
 ${endif}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ]]
