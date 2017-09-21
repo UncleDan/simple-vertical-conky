@@ -1,0 +1,150 @@
+--[[
+Conky, a system monitor, based on torsmo
+
+Any original torsmo code is licensed under the BSD license
+
+All code written since the fork of torsmo is licensed under the GPL
+
+Please see COPYING for details
+
+Copyright (c) 2004, Hannu Saransaari and Lauri Hakkarainen
+Copyright (c) 2005-2012 Brenden Matthews, Philip Kovacs, et. al. (see AUTHORS)
+All rights reserved.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+About this .conkyrc:
+"Simple vertical Conky" is simple conky configuration created for the purpose of learning and understanding the new lua syntax in Conky 1.10 and for those who are looking for a not-complicated monitor for their linux desktops. This conky was designed under KDE Plasma 4.10 with KDE neon. There maybe will be some issues witht the transparecy of the window and with the fonts, in that I suggest to read the Conky documentation and look into the net for any problem of this kind, remember this is designed for learning. In all the cases, this conky will work fine if the package "conky-all" is installed instead "conky-std" and with the Poky and Liberation Sans fonts installed. The transparecy can also be modified in the setting "own_window_argb_value", line 68, where 0 is completely transparent and 255 is opaque.
+Some resources:
+http://conky.sourceforge.net/variables.html
+http://www.ifxgroup.net/conky.htm
+https://github.com/brndnmtthws/conky/wiki/Convert-to-new-1.10-syntax
+
+Regards
+Alejandro24
+http://alejandro24.deviantart.com/
+
+]]
+
+conky.config = {
+    alignment = 'top_right',
+    background = false,
+    border_width = 1,
+    cpu_avg_samples = 1,
+	default_color = 'white',
+    default_outline_color = 'white',
+    default_shade_color = 'white',
+    draw_borders = false,
+    draw_graph_borders = false,
+    draw_outline = false,
+    draw_shades = false,
+    use_xft = true,
+    --[[font = 'Liberation Sans:size=9']]
+    gap_x = 5,
+    gap_y = 5,
+    minimum_height = 300,
+    maximum_height = 500,
+	minimum_width = 150,
+	maximum_width = 180,
+    net_avg_samples = 2,
+    no_buffers = true,
+    out_to_console = false,
+    out_to_stderr = false,
+    extra_newline = false,
+    
+    own_window = true,
+    own_window_type = 'normal',
+    own_window_argb_visual = true,
+    own_window_argb_value = 100,
+    --[[own_window_transparent = true,]]
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    double_buffer = true,
+    
+    stippled_borders = 0,
+    update_interval = 1.0,
+    uppercase = false,
+    use_spacer = 'none',
+    show_graph_scale = false,
+    show_graph_range = false
+}
+
+conky.text = [[
+$alignc${color white}${font Liberation Sans:pixelsize=33,weight:bold}${time %T}
+${voffset -23}$alignc${color white}${font Liberation Sans:pixelsize=11}${time %A %d de %B de %Y}
+${voffset -10}
+${color white}Usuario: $nodename
+${color white}Kernel: $kernel-$machine
+${color white}Tiempo de act.: $uptime
+${voffset -7}
+${font Poky:pixelsize=20}P${offset 5}${font Liberation Sans:pixelsize=15,weight:bold}CPU
+${voffset -11}${stippled_hr 1}
+${voffset -17}${font Liberation Sans:pixelsize=11}
+${color white}${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq | cut -c 1-26}
+${color white}CPU:   $cpu% $alignr${cpugraph 11,60,-l}
+${color white}CPU1: ${cpu cpu1}% $alignr${cpubar cpu1 7,60}
+${color white}CPU2: ${cpu cpu2}% $alignr${cpubar cpu2 7,60}
+${color white}CPU3: ${cpu cpu3}% $alignr${cpubar cpu3 7,60}
+${color white}CPU4: ${cpu cpu4}% $alignr${cpubar cpu4 7,60}
+${voffset -7}
+${color white}Proceso $alignr CPU%
+${color white}${top name 1 cpu} $alignr${top cpu 1}%
+${color white}${top name 2 cpu} $alignr${top cpu 2}%
+${color white}${top name 3 cpu} $alignr${top cpu 3}%
+${color white}${top name 4 cpu} $alignr${top cpu 4}%
+${color white}${top name 5 cpu} $alignr${top cpu 5}%
+
+${voffset -23}
+${font Poky:pixelsize=20}M${offset 5}${font Liberation Sans:pixelsize=15,weight:bold}RAM & Swap
+${voffset -11}${stippled_hr 1}
+${voffset -17}${font Liberation Sans:pixelsize=11}
+${color white}RAM: $memperc%, $memmax
+${color white}$alignc $mem ${membar 7,60} $memeasyfree
+${color white}Swap: $swapperc%, $swapmax
+${color white}$alignc $swap ${swapbar 7,60}  $swapfree
+${voffset -7}
+${color white}Proceso $alignr RAM%
+${color white}${top_mem name 1} $alignr${top_mem mem 1}%
+${color white}${top_mem name 2} $alignr${top_mem mem 2}%
+${color white}${top_mem name 3} $alignr${top_mem mem 3}%
+${color white}${top_mem name 4} $alignr${top_mem mem 4}%
+${color white}${top_mem name 5} $alignr${top_mem mem 5}%
+
+${voffset -23}
+${font Poky:pixelsize=20}H${offset 5}${font Liberation Sans:pixelsize=15,weight:bold}Discos
+${voffset -11}${stippled_hr 1}
+${voffset -17}${font Liberation Sans:pixelsize=11}
+${color white}Root: ${fs_used_perc /}%, ${fs_size /} 
+${color white}$alignc${fs_used /} ${fs_bar 7,60 /} ${fs_free /}
+${color white}Data: ${fs_used_perc /media/hackstahl/Data/}%, ${fs_size /media/hackstahl/Data/} 
+${color white}$alignc${fs_used /media/hackstahl/Data/} ${fs_bar 7,60 /media/hackstahl/Data/} ${fs_free /media/hackstahl/Data/}
+ 
+${voffset -23}
+${font Poky:pixelsize=20}w${offset 5}${font Liberation Sans:pixelsize=15,weight:bold}Red
+${voffset -11}${stippled_hr 1}
+${font Liberation Sans:pixelsize=11}
+${if_existing /proc/net/route enp2s0}
+${voffset -30}${color white}Ethernet: ${addr enp2s0}
+${color white}D: ${downspeed enp2s0} $alignr T: ${totaldown enp2s0}
+${color white}S: ${upspeed enp2s0} $alignr T: ${totalup enp2s0}
+${else}
+${voffset -30}${color white}Ethernet: no conectado.
+${endif}
+${if_existing /proc/net/route wlp3s0}
+${voffset -23}${color white}WiFi: ${addr wlp3s0}
+${color white}D: ${downspeed wlp3s0} $alignr T: ${totaldown wlp3s0}
+${color white}S: ${upspeed wlp3s0} $alignr T: ${totalup wlp3s0}
+${else}
+${voffset -23}${color white}WiFi: no conectado.
+${endif}
+
+]]
